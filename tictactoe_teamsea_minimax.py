@@ -35,6 +35,7 @@
 import random # used in greeting, first move if computer
 import sys # used to exit when quit is given as input
 import datetime #import datetime
+import inspect # used in logging
 
 #### Starting Dictionary, list, and variables
 # Board Dictionary
@@ -192,8 +193,12 @@ def display_TTTBoard():
 ## win conditions function ###
 # returns false until a given marker is present in all three slots of one of the conditions
 def CheckForWin(PlayerMarker):
+    #test to make noise more helpful in log
+    inspect_this=inspect.currentframe()
+    inspect_that=inspect_this.f_back
+    what_is_calling=inspect_that.f_code.co_name
     with open(logfile, 'a') as save_input: # a = append 
-        save_input.write(f'CheckForWin invoked - checking for a victory.\n')
+        save_input.write(f'CheckForWin invoked against {PlayerMarker} by {what_is_calling}- checking for WinConditions.\n')
     #list of lists of possible win conditions
     WinConditions = [
         # Horizontal
