@@ -328,7 +328,7 @@ def TTT_Move(CurrentPlayer,PlayerMarker):
 
 #function to have computer randomly select move ###
 def Octo_Move(CurrentPlayer,PlayerMarker):
-    while not PlaceList: #check if placelist is not empty
+    if PlaceList != []: #check if placelist is not empty
         # randomly choose a place from list of places
         PlacePick = random.randint(0, len(PlaceList) - 1)
         # using list of places as dictionary used for the board is not positional.
