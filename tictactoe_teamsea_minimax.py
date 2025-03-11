@@ -72,7 +72,7 @@ def Salutation():
     print("You can enter 'quit' at any point to exit the program.")
 
 #Utility function
-# function to write some basic logic to both files
+# function to write messages to both files
 def SaveAndLog_utility(Message):
     with open(savefile, 'a') as save_input: 
         save_input.write(Message)
@@ -192,13 +192,18 @@ def display_TTTBoard():
 
 ## win conditions function ###
 # returns false until a given marker is present in all three slots of one of the conditions
+# also used by minimax to determine best move
 def CheckForWin(PlayerMarker):
-    #test to make noise more helpful in log
+    #since this is called repeatedly for various functions, one noisily
+    #get the function calling this with inspect
+    #get this function to inspect
     inspect_this=inspect.currentframe()
+    # of this function, retrieve function calling
     inspect_that=inspect_this.f_back
+    # variable for the caller functions name
     what_is_calling=inspect_that.f_code.co_name
     with open(logfile, 'a') as save_input: # a = append 
-        save_input.write(f'CheckForWin invoked against {PlayerMarker} by {what_is_calling}- checking for WinConditions.\n')
+        save_input.write(f'CheckForWin invoked against {PlayerMarker} by {what_is_calling}- checking WinConditions.\n')
     #list of lists of possible win conditions
     WinConditions = [
         # Horizontal
@@ -256,9 +261,9 @@ def remove_AvailablePlaces(Move):
     #print(f"Index is is {PlaceList[Move]}.") # index of move
     #status print -optional # removal note
     #print(f"removing  {Move} from list of available moves.")
-    PlaceList.remove(Move) #remove user's move from list of available moves (-1 as index starts at zero)
-    with open(logfile, 'a') as save_input: # a = append to log file
-            save_input.write(f'{Move} removed from list of available moves.\n') #\n for new line
+    PlaceList.remove(Move) #remove user's move from list of available moves 
+    with open(logfile, 'a') as save_input: # a = append to log file #\n for new line
+            save_input.write(f'{Move} removed from list of available moves.\n') 
             save_input.write(f'Board Dictionary is: {TTTBoard}\n')
             save_input.write(f'List of Places is: {PlaceList}\n')
 
